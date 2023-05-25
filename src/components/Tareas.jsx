@@ -103,8 +103,8 @@ const scrollToTop = () => {
 
                   </div>
                 </div>
-                <h5 className='text-info'>{tarea.name}</h5>
-                <p className='d-flex p-4'>{tarea.descripcion}</p>
+                <h5 className='text-success'>{tarea.name}</h5>
+                <p className='p-1'>{tarea.descripcion}</p>
               </div>
             </div>
           )
