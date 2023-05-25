@@ -21,7 +21,7 @@ export const Form = (props) => {
     };
 
     const validarDato = str => {
-        if (str != "") {
+        if (str !== "") {
             return false;
         } else {
             return true;
@@ -32,9 +32,9 @@ export const Form = (props) => {
         e.preventDefault();
         if (validarDato(values.data)) {
 
-            toast("Fecha Vacía", {
+            toast("ERROR Ingrerse una Fecha", {
                 type: "error",
-                autoClose: 1000,
+                autoClose: 2500,
                 position: "top-center"
             })
 
@@ -56,7 +56,8 @@ export const Form = (props) => {
         else {
             getTareaById(props.currentId);
         }
-    }, [props.currentId]);
+        // eslint-disable-next-line
+    }, [props.currentId]); 
 
     return (
         <form className="card card-body p-4" onSubmit={handleSubmit}>
