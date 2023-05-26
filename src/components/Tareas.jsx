@@ -76,12 +76,12 @@ const scrollToTop = () => {
 <div>
 
         <div className=" col-md-6 mx-auto p-2">
-          <h4 className='justify-content-center p-3 text-primary'>Ingresar Tarea Diaria</h4>
+          <h4 className='d-flex justify-content-center p-3 text-primary'>Ingresar Tarea Diaria</h4>
           <Form {...{ addOrEditTarea, currentId, tareas }} />
           </div>
-          <h4 className='justify-content-center p-3 text-primary'>Reporte de Tareas</h4>
+          
         <div className=" col-md-8 mx-auto p-2">
-        
+        <h4 className='d-flex justify-content-center p-3 text-primary'>Reporte de Tareas</h4>
           {tareas.map(tarea =>
           //{return <h1> {tarea.name} </h1>}
 
