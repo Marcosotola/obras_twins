@@ -56,7 +56,7 @@ const scrollToTop = () => {
   };
 
   const getTareas = async () => {
-    db.collection("tareas").onSnapshot((querySnapshot) => {
+    db.collection("tareas").orderBy("data", "asc").onSnapshot((querySnapshot) => {
       const docs = [];
       querySnapshot.forEach(doc => {
         docs.push({ ...doc.data(), id: doc.id });
@@ -116,7 +116,6 @@ const scrollToTop = () => {
     </>
   )
 };
-
 
 export default Tareas;
 
