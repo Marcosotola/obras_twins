@@ -8,10 +8,13 @@ export const Header = () => {
       <div className='header'>
         <h4>OBRA: BANCOR</h4>
         <div className='logoContainer'>
-          <img src={Logo} className='logo' alt="logo" />
+          <img src={Logo} className="logo" alt="logo" />
         </div>
       </div>
     </>
   )
 }
+
+
+
 export default Header;
