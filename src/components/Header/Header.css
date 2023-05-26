@@ -3,10 +3,7 @@
     justify-content: space-between;
 }
 .logo{
-    width: 15vh;
-    padding: 0.5rem;
-    background-color: white;
-    border-radius: 10px;
+    width: 20vh;
 }
 h4{
     display: flex;
