@@ -65,7 +65,7 @@ export const Form = (props) => {
                 <div className="input-group-text bg-light">
                     <i className="material-icons text-primary">event</i>
                 </div>
-                <input type="text"
+                <input type="date"
                     className="form-control"
                     placeholder="Fecha (DD/MM/AAAA)"
                     name="data"

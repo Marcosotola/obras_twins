@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 
 import "./firebase";
 
-import "bootswatch/dist/lumen/bootstrap.min.css"
+import "bootswatch/dist/flatly/bootstrap.min.css"
 
 
 

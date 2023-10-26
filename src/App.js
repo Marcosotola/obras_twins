@@ -1,27 +1,28 @@
 import './App.css';
-import Tareas from "./components/Tareas";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Tareas from "./pages/Tareas";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Header from "./components/Header/Header";
+import Header from "./sections/Header/Header";
+import Home from './pages/Home';
+import Materiales from './pages/Materiales';
 
 function App() {
   return (
     <>
       <div className='container p-2' >
-        <div className='column'>
-
-          <hr />
+        <Router>
           <Header />
-          <hr />
-          <div className=''>
-          
-            <Tareas />
-          </div>
-        </div>
+          <Routes >
+            <Route path="/" element={<Home />} />
+            <Route path="/Tareas" element={<Tareas />} />
+            <Route path="/Materiales" element={<Materiales />} />
+          </Routes>
+        </Router>
         <ToastContainer />
-      </div>
-    </>
-  );
+        </div>
+      </>
+      );
 }
 
-export default App;
+      export default App;
