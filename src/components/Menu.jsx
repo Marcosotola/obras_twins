@@ -20,15 +20,15 @@ function Menu() {
         className={`collapse navbar-collapse ${isOpen ? "show" : ""}`}
         style={{ position: 'absolute', top: '100%', left: 0, zIndex: 1 }}
       >
-        <ul className="navbar-nav bg-secondary p-3 rounded rounded-3">
+        <ul className="navbar-nav bg-primary bg-opacity-50 p-3 rounded rounded-3">
           <li className="nav-item">
-            <a className="nav-link text-warning" href="/"><h4>Inicio</h4></a>
+            <a className="nav-link text-light" href="/"><h4>Inicio</h4></a>
           </li>
           <li className="nav-item">
-            <a className="nav-link text-warning" href="/Tareas"><h4>Tareas</h4></a>
+            <a className="nav-link text-light" href="/Tareas"><h4>Tareas</h4></a>
           </li>
           <li className="nav-item">
-            <a className="nav-link text-warning" href="/Materiales"><h4>Materiales</h4></a>
+            <a className="nav-link text-light" href="/Materiales"><h4>Materiales</h4></a>
           </li>
         </ul>
       </div>
