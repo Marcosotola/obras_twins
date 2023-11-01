@@ -1,4 +1,5 @@
 import React from "react";
+import Badge from "../components/Badge";
 
 const Home = () => {
   return (
@@ -17,6 +18,7 @@ const Home = () => {
       </div>
 */}
       <div className="container">
+        <Badge />
         <div className="m-5">
           <h5 className="text-center">Progreso General</h5>
           <div class="progress">

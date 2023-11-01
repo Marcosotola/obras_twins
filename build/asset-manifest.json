@@ -1,16 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.62e44f34.css",
-    "main.js": "/static/js/main.b92b57fd.js",
+    "main.js": "/static/js/main.ef363078.js",
     "static/js/787.038c4962.chunk.js": "/static/js/787.038c4962.chunk.js",
+    "static/media/logoWa.png": "/static/media/logoWa.b61c788f49daf04debea.png",
     "static/media/LogoTwins.png": "/static/media/LogoTwins.3eb5a482500d034e5c9f.png",
     "index.html": "/index.html",
     "main.62e44f34.css.map": "/static/css/main.62e44f34.css.map",
-    "main.b92b57fd.js.map": "/static/js/main.b92b57fd.js.map",
+    "main.ef363078.js.map": "/static/js/main.ef363078.js.map",
     "787.038c4962.chunk.js.map": "/static/js/787.038c4962.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.62e44f34.css",
-    "static/js/main.b92b57fd.js"
+    "static/js/main.ef363078.js"
   ]
 }
