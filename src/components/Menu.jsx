@@ -30,6 +30,12 @@ function Menu() {
           <li className="nav-item">
             <a className="nav-link text-light" href="/Materiales"><h4>Materiales</h4></a>
           </li>
+          <li className="nav-item">
+            <a className="nav-link text-light" href="/Recordatorios"><h4>Recordatorios</h4></a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link text-light" href="/Planos"><h4>Planos</h4></a>
+          </li>
         </ul>
       </div>
     </nav>
