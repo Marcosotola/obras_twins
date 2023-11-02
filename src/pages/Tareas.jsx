@@ -94,7 +94,7 @@ export const Tareas = () => {
     <>
       <div>
         <div className="col-md-6 mx-auto p-2">
-          <h4 className="d-flex justify-content-center p-3 text-light">
+          <h4 className="d-flex justify-content-center p-3">
             Ingresar Tarea Diaria
           </h4>
           <form className="card card-body p-4" onSubmit={handleSubmit}>
@@ -146,7 +146,7 @@ export const Tareas = () => {
           <h4 className="d-flex justify-content-center p-3">
             Reporte de Tareas
           </h4>
-          <div className="mb-4 d-flex">
+          <div className="mb-4 d-flex gap-2">
             <input
               type="text"
               className="form-control"
@@ -154,17 +154,17 @@ export const Tareas = () => {
               onChange={(e) => handleFilterChange(e.target.value)}
             />
             <button
-              className="btn btn-primary mt-2"
+              className="btn btn-primary"
               onClick={() => handleFilterChange(filter)}
             >
-              FILTRAR
+              Filtrar
             </button>
             <CSVLink
               data={filteredTareas}
               filename={"tareas.csv"}
               className="btn btn-primary"
             >
-              CSV
+              Descargar
             </CSVLink>
           </div>
           <table className="table">
