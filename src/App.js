@@ -6,6 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Header from "./sections/Header/Header";
 import Home from './pages/Home';
 import Materiales from './pages/Materiales';
+import Recordatorios from './pages/Recordatorios';
+import Planos from './pages/Planos';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/Tareas" element={<Tareas />} />
             <Route path="/Materiales" element={<Materiales />} />
+            <Route path="/Recordatorios" element={<Recordatorios />} />
+            <Route path="/Planos" element={<Planos />} />
           </Routes>
         </Router>
         <ToastContainer />

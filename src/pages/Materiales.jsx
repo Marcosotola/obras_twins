@@ -35,8 +35,9 @@ const Materiales = () => {
 
   return (
     <>
-      <h4 className='text-center'>Lista de Materiales Entregados</h4>
-      <div className='m-3'>
+    <div className="container">
+      <h4 className='text-center mt-5 mb-5'>Lista de Materiales Entregados</h4>
+      <div className='mb-4'>
         <div className='input-group-text'>
           <input
             className="form-control"
@@ -52,7 +53,7 @@ const Materiales = () => {
             table="tablaMateriales"
             filename="materiales"
             sheet="materiales_data"
-            buttonText="Exportar a Excel"
+            buttonText="Excel"
           />
         </div>
       </div>
@@ -74,6 +75,7 @@ const Materiales = () => {
           ))}
         </tbody>
       </table>
+      </div>
     </>
   );
 };

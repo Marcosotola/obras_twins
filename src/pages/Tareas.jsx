@@ -1,236 +1,194 @@
-import React, { useState } from 'react'
-import Form from '../components/Form';
-import { toast } from "react-toastify";
+import React, { useState, useEffect } from "react";
 import { db } from "../firebase";
-import { useEffect } from 'react';
-
+import { toast } from "react-toastify";
+import { CSVLink } from "react-csv";
 
 export const Tareas = () => {
+  const initialStateValues = {
+    data: "",
+    name: "",
+    descripcion: "",
+  };
 
-const scrollToTop = () => {
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-};
-
+  const [values, setValues] = useState(initialStateValues);
   const [tareas, setTareas] = useState([]);
-  const [currentId, setCurrentId] = useState('')
+  const [currentId, setCurrentId] = useState("");
+  const [filter, setFilter] = useState("");
+  const [filteredTareas, setFilteredTareas] = useState(tareas);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
+  };
+
+  const validateData = (str) => {
+    return str === "";
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateData(values.data)) {
+      toast("ERROR: Ingrese una Fecha", {
+        type: "error",
+        autoClose: 2500,
+        position: "top-center",
+      });
+    } else {
+      addOrEditTarea(values);
+      setValues({ ...initialStateValues });
+    }
+  };
+
   const addOrEditTarea = async (tareaObject) => {
     try {
-      if (currentId === '') {
+      if (currentId === "") {
         await db.collection("tareas").doc().set(tareaObject);
 
         toast("Tarea Agregada", {
           type: "success",
           autoClose: 1000,
-          position: "top-center"
+          position: "top-center",
         });
-      } 
-      
-      else {
-        await db.collection('tareas').doc(currentId).update(tareaObject);
+      } else {
+        await db.collection("tareas").doc(currentId).update(tareaObject);
 
         toast("Tarea Actualizada", {
           type: "info",
           autoClose: 1000,
-          position: "top-center"
+          position: "top-center",
         });
-        setCurrentId('');
+        setCurrentId("");
+        setValues(initialStateValues); // Reset the form
       }
     } catch (error) {
       console.error(error);
     }
   };
 
-  const onDeleteTarea = async (id) => {
-    if (window.confirm("Desea eliminar la tarea?")) {
-      await db.collection("tareas").doc(id).delete();
-
-      toast("Tarea Eliminada", {
-        type: "error",
-        autoClose: 1000,
-        position: "top-center"
-      })
-    }
+  const handleFilterChange = (value) => {
+    setFilter(value);
+    const filtered = tareas.filter((tarea) =>
+      tarea.name.toLowerCase().includes(value.toLowerCase())
+    );
+    setFilteredTareas(filtered);
   };
 
   const getTareas = async () => {
-    db.collection("tareas").orderBy("data", "asc").onSnapshot((querySnapshot) => {
-      const docs = [];
-      querySnapshot.forEach(doc => {
-        docs.push({ ...doc.data(), id: doc.id });
+    db.collection("tareas")
+      .orderBy("data", "asc")
+      .onSnapshot((querySnapshot) => {
+        const docs = [];
+        querySnapshot.forEach((doc) => {
+          docs.push({ ...doc.data(), id: doc.id });
+        });
+        setTareas(docs);
+        setFilteredTareas(docs);
       });
-      setTareas(docs);
-    });
-  }
-
+  };
 
   useEffect(() => {
     getTareas();
   }, []);
-
 
   return (
     <>
-<div>
-
-        <div className=" col-md-6 mx-auto p-2">
-          <h4 className='d-flex justify-content-center p-3 text-light'>Ingresar Tarea Diaria</h4>
-          <Form {...{ addOrEditTarea, currentId, tareas }} />
-          </div>
-          
-        <div className=" col-md-8 mx-auto p-2">
-        <h4 className='d-flex justify-content-center p-3'>Reporte de Tareas</h4>
-          {tareas.map(tarea =>
-          //{return <h1> {tarea.name} </h1>}
-
-          
-            <div className="card mb-1 text-center" key={tarea.id}>
-              <div className="card-body">
-                <div className='d-flex justify-content-between'>
-                  <h6>{tarea.data}</h6>
-                  <h6 className='text-success'>{tarea.name}</h6>
-                  <div>
-                   
-                    <button className='btn'>
-                      <i className='material-icons text-danger'
-                        onClick={() => onDeleteTarea(tarea.id)}>delete</i>
-                    </button>
-
-                    <button className='btn' onClick={scrollToTop}>                                     
-                      <i className='material-icons'onClick= {() => setCurrentId(tarea.id) }>edit</i>                       
-                    </button>
-
-                  </div>
-                </div>
-                
-                <p className=''>{tarea.descripcion}</p>
+      <div>
+        <div className="col-md-6 mx-auto p-2">
+          <h4 className="d-flex justify-content-center p-3 text-light">
+            Ingresar Tarea Diaria
+          </h4>
+          <form className="card card-body p-4" onSubmit={handleSubmit}>
+            <div className="form-group input-group p-1">
+              <div className="input-group-text bg-light">
+                <i className="material-icons text-primary">event</i>
               </div>
+              <input
+                type="date"
+                className="form-control"
+                placeholder="Fecha (DD/MM/AAAA)"
+                name="data"
+                onChange={handleInputChange}
+                value={values.data}
+              />
             </div>
 
-          )}
+            <div className="form-group input-group p-1">
+              <div className="input-group-text bg-light">
+                <i className="material-icons text-primary">create</i>
+              </div>
+              <input
+                type="text"
+                className="form-control"
+                name="name"
+                placeholder="Tarea"
+                onChange={handleInputChange}
+                value={values.name}
+              />
+            </div>
+            <div className="form-group p-1">
+              <textarea
+                name="descripcion"
+                rows="3"
+                className="form-control"
+                placeholder="Descripción"
+                onChange={handleInputChange}
+                value={values.descripcion}
+              ></textarea>
+            </div>
+
+            <button className="btn btn-primary btn-block m-1">
+              {currentId === "" ? "GUARDAR" : "ACTUALIZAR"}
+            </button>
+          </form>
         </div>
-        </div>
 
-    </>
-  )
-};
-
-export default Tareas;
-
-
-
-
-
-
-
-
-
-
-/*
-import React, { useState, useEffect } from 'react';
-import Form from './Form';
-import { toast } from 'react-toastify';
-import { db } from '../firebase';
-
-export const Tareas = () => {
-  const [tareas, setTareas] = useState([]);
-  const [currentId, setCurrentId] = useState('');
-
-  const addOrEditTarea = async (tareaObject) => {
-    try {
-      if (currentId === '') {
-        await db.collection("tareas").doc().set(tareaObject);
-
-        toast("Tarea Agregada", {
-          type: "success",
-          autoClose: 1000,
-          position: "top-center"
-        });
-      } 
-      else {
-        await db.collection('tareas').doc(currentId).update(tareaObject);
-
-        toast("Tarea Actualizada", {
-          type: "info",
-          autoClose: 1000,
-          position: "top-center"
-        });
-        setCurrentId('');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const onDeleteTarea = async (id) => {
-    if (window.confirm("Desea eliminar la tarea?")) {
-      await db.collection("tareas").doc(id).delete();
-
-      toast("Tarea Eliminada", {
-        type: "error",
-        autoClose: 1000,
-        position: "top-center"
-      })
-    }
-  };
-
-  const getTareas = async () => {
-    db.collection("tareas").orderBy("data", "asc").onSnapshot((querySnapshot) => {
-      const docs = [];
-      querySnapshot.forEach(doc => {
-        docs.push({ ...doc.data(), id: doc.id });
-      });
-      setTareas(docs);
-    });
-  };
-
-  useEffect(() => {
-    getTareas();
-  }, []);
-
-  return (
-    <div>
-      <div className="col-md-6 mx-auto p-2">
-        <h4 className="d-flex justify-content-center p-3 text-primary">Ingresar Tarea Diaria</h4>
-        <Form {...{ addOrEditTarea, currentId, tareas }} />
-      </div>
-
-      <div className="col-md-8 mx-auto p-2">
-        <h4 className="d-flex justify-content-center p-3 text-primary">Reporte de Tareas</h4>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Nombre</th>
-              <th>Descripción</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tareas.map((tarea) => (
-              <tr key={tarea.id}>
-                <td>{tarea.data}</td>
-                <td>{tarea.name}</td>
-                <td>{tarea.descripcion}</td>
-                <td>
-                  <button className="btn" onClick={() => onDeleteTarea(tarea.id)}>
-                    <i className="material-icons text-danger">delete</i>
-                  </button>
-                  <button className="btn" onClick={() => setCurrentId(tarea.id)}>
-                    <i className="material-icons">edit</i>
-                  </button>
-                </td>
+        <div className="col-md-8 mx-auto p-2">
+          <h4 className="d-flex justify-content-center p-3">
+            Reporte de Tareas
+          </h4>
+          <div className="mb-4 d-flex">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Filtrar tareas por tema"
+              onChange={(e) => handleFilterChange(e.target.value)}
+            />
+            <button
+              className="btn btn-primary mt-2"
+              onClick={() => handleFilterChange(filter)}
+            >
+              FILTRAR
+            </button>
+            <CSVLink
+              data={filteredTareas}
+              filename={"tareas.csv"}
+              className="btn btn-primary"
+            >
+              CSV
+            </CSVLink>
+          </div>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Tarea</th>
+                <th>Descripción</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {filteredTareas.map((tarea) => (
+                <tr key={tarea.id}>
+                  <td>{tarea.data}</td>
+                  <td>{tarea.name}</td>
+                  <td>{tarea.descripcion}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
 export default Tareas;
-
-*/

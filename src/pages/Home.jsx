@@ -62,7 +62,8 @@ const Home = () => {
         <div className="d-flex justify-content-center">
         </div>
         <hr />
-        <div className="text-center">
+        <hr />
+        <div className="text-center mt-5">
         <iframe style={{borderRadius: "10px"}} title="versiculo" width="90%" scrolling="no" height="200vh" frameborder="0" src="https://www.bibliatodo.com/es/online/versiculo-del-dia-texto"></iframe>
         </div>
       </div>
