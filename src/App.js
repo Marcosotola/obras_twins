@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Materiales from './pages/Materiales';
 import Recordatorios from './pages/Recordatorios';
 import Planos from './pages/Planos';
+import Avance from './pages/Avance';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/Materiales" element={<Materiales />} />
             <Route path="/Recordatorios" element={<Recordatorios />} />
             <Route path="/Planos" element={<Planos />} />
+            <Route path="/Avance" element={<Avance />} />
           </Routes>
         </Router>
         <ToastContainer />
