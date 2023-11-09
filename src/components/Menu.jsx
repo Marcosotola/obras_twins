@@ -34,6 +34,9 @@ function Menu() {
             <a className="nav-link text-light" href="/Recordatorios"><h4>Recordatorios</h4></a>
           </li>
           <li className="nav-item">
+            <a className="nav-link text-light" href="/Avance"><h4>Avance</h4></a>
+          </li>
+          <li className="nav-item">
             <a className="nav-link text-light" href="/Planos"><h4>Planos</h4></a>
           </li>
         </ul>
