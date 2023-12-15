@@ -58,6 +58,11 @@ const Home = () => {
             <h3>Planos</h3>
             </a>
           </button>
+          <button class="btn btn-lg btn-primary p-3" type="button">
+          <a className="text-decoration-none" href="/Remito">
+            <h3>Remitos</h3>
+            </a>
+          </button>
         </div>
         <div className="d-flex justify-content-center">
         </div>
