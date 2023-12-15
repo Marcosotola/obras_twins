@@ -114,7 +114,7 @@ export const Recordatorios = () => {
       <div>
         <div className=" col-md-6 mx-auto p-2">
           <h4 className="d-flex justify-content-center p-3 text-light">
-            Ingresar Recordatorio Diario
+            Ingresar Recordatorio
           </h4>
           <form className="card card-body p-4" onSubmit={handleSubmit}>
             <div className="form-group input-group p-1">
