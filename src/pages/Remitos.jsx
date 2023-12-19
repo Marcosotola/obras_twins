@@ -12,7 +12,10 @@ const Remitos = () => {
   useEffect(() => {
     const fetchRemitos = async () => {
       try {
-        const remitosSnapshot = await db.collection("remitos").orderBy("numero", "asc").get();
+        const remitosSnapshot = await db
+          .collection("remitos")
+          .orderBy("numero", "asc")
+          .get();
         const remitosData = remitosSnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
@@ -63,28 +66,29 @@ const Remitos = () => {
 
       {/* Filtros */}
       <div className="m-2 d-flex">
-        <div className="m-2">
-
-        <label className="m-2">Fecha:  </label>
-        <input
-          type="date"
-          value={fechaFiltro}
-          onChange={(e) => setFechaFiltro(e.target.value)}
-        />
-</div>
-<div className="m-2">
-        <label className="m-2">Número:   </label>
-        <input
-          type="text"
-          value={numeroFiltro}
-          onChange={(e) => setNumeroFiltro(e.target.value)}
-        />
+      <div className="m-2">
+          <label className="m-2">Número: </label>
+          <input
+            type="text"
+            value={numeroFiltro}
+            onChange={(e) => setNumeroFiltro(e.target.value)}
+          />
         </div>
+        <div className="m-2">
+          <label className="m-2">Fecha: </label>
+          <input
+            type="date"
+            value={fechaFiltro}
+            onChange={(e) => setFechaFiltro(e.target.value)}
+          />
+        </div>
+        
       </div>
 
       {filteredRemitos.map((remito) => (
         <div key={remito.id} className="card mb-4 bg-light">
           <div className="card-body">
+          <h1 className="text-center border border-primary">R</h1>
             <div className="bg-light rounded d-flex justify-content-between">
               <div>
                 <img
@@ -92,21 +96,17 @@ const Remitos = () => {
                   alt="logo"
                   width="75%"
                   height="50"
-                  className="rounded mb-2 "
+                
                 />
               </div>
-              <h1>R</h1>
               <div>
                 <h1>Remito</h1>
                 <h6 className="card-title text-primary">
                   Fecha:{" "}
-                  <span className="text-info">
-                    {formatDate(remito.fecha)}
-                  </span>
+                  <span className="text-info">{formatDate(remito.fecha)}</span>
                 </h6>
                 <h6 className="card-title text-primary">
-                  Número:{" "}
-                  <span className="text-success">{remito.numero}</span>
+                  Número: <span className="text-success">{remito.numero}</span>
                 </h6>
               </div>
             </div>
