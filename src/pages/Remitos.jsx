@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { db } from "../firebase";
 import LogoTwins from "../sections/Header/LogoTwins.png";
 
@@ -32,9 +32,10 @@ const Remitos = () => {
 
   // Función para formatear la fecha
   const formatDate = useCallback((dateString) => {
-    const date = new Date(dateString);
+    const date = parseISO(dateString);
     return format(date, "dd-MM-yy");
   }, []);
+  
 
   // Función para aplicar filtros
   const applyFilters = useCallback(() => {
@@ -87,9 +88,9 @@ const Remitos = () => {
 
       {filteredRemitos.map((remito) => (
         <div key={remito.id} className="card mb-4 bg-light">
-          <div className="card-body">
+          <div className="card-body ">
           <h1 className="text-center border border-primary">R</h1>
-            <div className="bg-light rounded d-flex justify-content-between">
+            <div className="bg-light rounded d-flex justify-content-between border border-primary p-2">
               <div>
                 <img
                   src={LogoTwins}
@@ -110,11 +111,11 @@ const Remitos = () => {
                 </h6>
               </div>
             </div>
-            <h6 className="text-primary">
+            <h6 className="text-primary mt-2">
               Nombre: <span className="text-warning">{remito.nombre}</span>
             </h6>
             <hr />
-            <table className="table">
+            <table className="table border border-primary">
               <thead>
                 <tr className="text-primary">
                   <th scope="col">CANTIDAD</th>
@@ -135,7 +136,7 @@ const Remitos = () => {
               src={remito.firma}
               alt="Firma"
               style={{ maxWidth: "100%" }}
-              className="img-fluid rounded text-center"
+              className="img-fluid rounded text-center border border-primary"
             />
           </div>
           <p className="text-center">Recibí Conforme</p>
