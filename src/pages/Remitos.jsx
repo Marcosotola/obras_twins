@@ -65,15 +65,8 @@ const Remitos = () => {
       <h2 className="mb-4">Remitos Materiales Entregados</h2>
 
       {/* Filtros */}
-      <div className="m-2 d-flex">
-      <div className="m-2">
-          <label className="m-2">Número: </label>
-          <input
-            type="text"
-            value={numeroFiltro}
-            onChange={(e) => setNumeroFiltro(e.target.value)}
-          />
-        </div>
+      <div className="m-2 ">
+      
         <div className="m-2">
           <label className="m-2">Fecha: </label>
           <input
@@ -82,7 +75,14 @@ const Remitos = () => {
             onChange={(e) => setFechaFiltro(e.target.value)}
           />
         </div>
-        
+        <div className="m-2">
+          <label className="m-2">Número: </label>
+          <input
+            type="text"
+            value={numeroFiltro}
+            onChange={(e) => setNumeroFiltro(e.target.value)}
+          />
+        </div>
       </div>
 
       {filteredRemitos.map((remito) => (
