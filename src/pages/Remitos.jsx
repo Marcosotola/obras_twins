@@ -12,7 +12,7 @@ const Remitos = () => {
   useEffect(() => {
     const fetchRemitos = async () => {
       try {
-        const remitosSnapshot = await db.collection("remitos").get();
+        const remitosSnapshot = await db.collection("remitos").orderBy("numero", "asc").get();
         const remitosData = remitosSnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
@@ -30,7 +30,7 @@ const Remitos = () => {
   // Función para formatear la fecha
   const formatDate = useCallback((dateString) => {
     const date = new Date(dateString);
-    return format(date, "dd-MM-yyyy");
+    return format(date, "dd-MM-yy");
   }, []);
 
   // Función para aplicar filtros
@@ -85,7 +85,7 @@ const Remitos = () => {
       {filteredRemitos.map((remito) => (
         <div key={remito.id} className="card mb-4 bg-light">
           <div className="card-body">
-            <div className="bg-light rounded d-flex justify-content-between p-2">
+            <div className="bg-light rounded d-flex justify-content-between">
               <div>
                 <img
                   src={LogoTwins}

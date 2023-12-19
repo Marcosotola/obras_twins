@@ -1,12 +1,13 @@
-import React, { useState, useRef } from 'react';
-import SignatureCanvas from 'react-signature-canvas';
-import { db } from '../firebase';
+import React, { useState, useRef } from "react";
+import { Form, Button, Row, Col } from "react-bootstrap";
+import SignatureCanvas from "react-signature-canvas";
+import { db } from "../firebase";
 
 const Remito = () => {
-  const [fecha, setFecha] = useState('');
-  const [nombre, setNombre] = useState('');
-  const [numero, setNumero] = useState('');
-  const [items, setItems] = useState([{ cantidad: '', descripcion: '' }]);
+  const [fecha, setFecha] = useState("");
+  const [nombre, setNombre] = useState("");
+  const [numero, setNumero] = useState("");
+  const [items, setItems] = useState([{ cantidad: "", descripcion: "" }]);
   const signatureRef = useRef();
   const [, forceUpdate] = useState();
 
@@ -26,7 +27,8 @@ const Remito = () => {
 
   const handleItemAgregar = () => agregarItem();
 
-  const agregarItem = () => setItems([...items, { cantidad: '', descripcion: '' }]);
+  const agregarItem = () =>
+    setItems([...items, { cantidad: "", descripcion: "" }]);
 
   const eliminarItem = (index) => {
     const updatedItems = [...items];
@@ -45,114 +47,154 @@ const Remito = () => {
       const firmaImage = signatureRef.current.toDataURL();
 
       const remitoData = { fecha, nombre, numero, items, firma: firmaImage };
-      const remitosCollection = db.collection('remitos');
+      const remitosCollection = db.collection("remitos");
 
       await remitosCollection.add(remitoData);
 
-      console.log('Remito enviado correctamente!');
+      console.log("Remito enviado correctamente!");
 
-      setFecha('');
-      setNombre('');
-      setNumero('');
-      setItems([{ cantidad: '', descripcion: '' }]);
+      setFecha("");
+      setNombre("");
+      setNumero("");
+      setItems([{ cantidad: "", descripcion: "" }]);
       signatureRef.current.clear();
     } catch (error) {
-      console.error('Error al enviar el remito:', error);
+      console.error("Error al enviar el remito:", error);
     }
   };
 
   return (
-    <form className="container mt-4" onSubmit={(e) => { e.preventDefault(); handleSubmit(e); }}>
-      <div className="form-group">
-        <label>
+    <>
+    <h1 className="text-center">Cargar Remito</h1>
+    <Form
+      className="container mt-4"
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit(e);
+      }}
+    >
+      <Form.Group as={Row}>
+        <Form.Label column sm="2">
           Fecha:
-          <input className="form-control" type="date" value={fecha} onChange={handleFechaChange} required />
-        </label>
-      </div>
+        </Form.Label>
+        <Col sm="8">
+          <Form.Control
+            type="date"
+            value={fecha}
+            onChange={handleFechaChange}
+            required
+          />
+        </Col>
+      </Form.Group>
 
-      <div className="form-group">
-        <label>
+      <Form.Group as={Row}>
+        <Form.Label column sm="2">
           Nombre:
-          <input
-            className="form-control"
+        </Form.Label>
+        <Col sm="8">
+          <Form.Control
             type="text"
             value={nombre}
             onChange={handleNombreChange}
             required
           />
-        </label>
-      </div>
+        </Col>
+      </Form.Group>
 
-      <div className="form-group">
-        <label>
+      <Form.Group as={Row}>
+        <Form.Label column sm="2">
           Número:
-          <input
-            className="form-control"
+        </Form.Label>
+        <Col sm="8">
+          <Form.Control
             type="text"
             value={numero}
             onChange={handleNumeroChange}
             required
           />
-        </label>
-      </div>
-
+        </Col>
+      </Form.Group>
+<hr />
       <h3>Items:</h3>
       {items.map((item, index) => (
         <div className="form-group" key={index}>
-          <label>
-            Cantidad:
-            <input
-              className="form-control"
-              type="text"
-              value={item.cantidad}
-              onChange={(e) => handleItemChange(index, 'cantidad', e.target.value)}
-            />
-          </label>
+          <Form.Group as={Row}>
+            <Form.Label column sm="2">
+              Cantidad:
+            </Form.Label>
+            <Col sm="3">
+              <Form.Control
+                type="text"
+                value={item.cantidad}
+                onChange={(e) =>
+                  handleItemChange(index, "cantidad", e.target.value)
+                }
+              />
+            </Col>
 
-          <label>
-            Descripción:
-            <input
-              className="form-control"
-              type="text"
-              value={item.descripcion}
-              onChange={(e) => handleItemChange(index, 'descripcion', e.target.value)}
-            />
-          </label>
+            <Form.Label column sm="2">
+              Descripción:
+            </Form.Label>
+            <Col sm="3">
+              <Form.Control
+                type="text"
+                value={item.descripcion}
+                onChange={(e) =>
+                  handleItemChange(index, "descripcion", e.target.value)
+                }
+              />
+            </Col>
 
-          <button className="btn btn-danger" type="button" onClick={() => eliminarItem(index)}>
-            Eliminar
-          </button>
+            <Col sm="12" className="mt-2 text-center">
+              <Button
+                variant="danger"
+                type="button"
+                onClick={() => eliminarItem(index)}
+              >
+                Eliminar Item
+              </Button>
+            </Col>
+          </Form.Group>
         </div>
       ))}
 
-      <button className="btn btn-primary" type="button" onClick={handleItemAgregar}>
+      <Button
+        className="mt-4 mb-3"
+        variant="primary"
+        type="button"
+        onClick={handleItemAgregar}
+      >
         Agregar Item
-      </button>
-
-      <div className="form-group">
-        <label>
-          Firma:
-          <SignatureCanvas
-            ref={signatureRef}
-            canvasProps={{ width: 500, height: 200, className: 'signatureCanvas form-control' }}
-            onEnd={handleCanvasEnd}
-          />
-          <button className="btn btn-warning mt-2" type="button" onClick={handleFirmaClear}>
-            Limpiar Firma
-          </button>
-        </label>
+      </Button>
+<hr />
+      <Form.Group>
+        <Form.Label>Firma:</Form.Label>
+        <SignatureCanvas
+          ref={signatureRef}
+          canvasProps={{
+            width: 500,
+            height: 200,
+            className: "signatureCanvas form-control",
+          }}
+          onEnd={handleCanvasEnd}
+        />
+        <Button
+          variant="warning"
+          className="mt-2"
+          type="button"
+          onClick={handleFirmaClear}
+        >
+          Limpiar Firma
+        </Button>
+      </Form.Group>
+      <div className="text-center">
+        <Button className="btn-lg mt-4 mb-4" variant="success" type="submit">
+          Enviar Remito
+        </Button>
       </div>
-
-      <button className="btn btn-success" type="submit">
-        Enviar
-      </button>
-    </form>
+    </Form>
+    </>
   );
 };
 
 export default Remito;
-
-
-
-
-
