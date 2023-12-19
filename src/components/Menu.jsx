@@ -31,6 +31,9 @@ function Menu() {
             <a className="nav-link text-light" href="/Materiales"><h4>Materiales</h4></a>
           </li>
           <li className="nav-item">
+            <a className="nav-link text-light" href="/Remitos"><h4>Remitos</h4></a>
+          </li>
+          <li className="nav-item">
             <a className="nav-link text-light" href="/Recordatorios"><h4>Recordatorios</h4></a>
           </li>
           <li className="nav-item">

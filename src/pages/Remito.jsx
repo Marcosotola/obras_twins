@@ -4,11 +4,15 @@ import { db } from '../firebase';
 
 const Remito = () => {
   const [fecha, setFecha] = useState('');
+  const [nombre, setNombre] = useState('');
+  const [numero, setNumero] = useState('');
   const [items, setItems] = useState([{ cantidad: '', descripcion: '' }]);
   const signatureRef = useRef();
   const [, forceUpdate] = useState();
 
   const handleFechaChange = (e) => setFecha(e.target.value);
+  const handleNombreChange = (e) => setNombre(e.target.value);
+  const handleNumeroChange = (e) => setNumero(e.target.value);
 
   const handleItemChange = (index, key, value) => {
     const updatedItems = [...items];
@@ -38,19 +42,18 @@ const Remito = () => {
     e.preventDefault();
 
     try {
-      // Obtener la imagen de la firma
       const firmaImage = signatureRef.current.toDataURL();
 
-      // Guardar en Firebase Firestore
-      const remitoData = { fecha, items, firma: firmaImage };
+      const remitoData = { fecha, nombre, numero, items, firma: firmaImage };
       const remitosCollection = db.collection('remitos');
 
       await remitosCollection.add(remitoData);
 
       console.log('Remito enviado correctamente!');
 
-      // Limpiar campos del formulario después de enviar
       setFecha('');
+      setNombre('');
+      setNumero('');
       setItems([{ cantidad: '', descripcion: '' }]);
       signatureRef.current.clear();
     } catch (error) {
@@ -64,6 +67,32 @@ const Remito = () => {
         <label>
           Fecha:
           <input className="form-control" type="date" value={fecha} onChange={handleFechaChange} required />
+        </label>
+      </div>
+
+      <div className="form-group">
+        <label>
+          Nombre:
+          <input
+            className="form-control"
+            type="text"
+            value={nombre}
+            onChange={handleNombreChange}
+            required
+          />
+        </label>
+      </div>
+
+      <div className="form-group">
+        <label>
+          Número:
+          <input
+            className="form-control"
+            type="text"
+            value={numero}
+            onChange={handleNumeroChange}
+            required
+          />
         </label>
       </div>
 
@@ -122,6 +151,7 @@ const Remito = () => {
 };
 
 export default Remito;
+
 
 
 

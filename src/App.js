@@ -10,6 +10,7 @@ import Recordatorios from './pages/Recordatorios';
 import Planos from './pages/Planos';
 import Avance from './pages/Avance';
 import Remito from './pages/Remito';
+import Remitos from './pages/Remitos';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/Planos" element={<Planos />} />
             <Route path="/Avance" element={<Avance />} />
             <Route path="/Remito" element={<Remito />} />
+            <Route path="/Remitos" element={<Remitos />} />
           </Routes>
         </Router>
         <ToastContainer />
