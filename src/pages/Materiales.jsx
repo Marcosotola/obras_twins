@@ -1,91 +1,68 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { CSVLink } from "react-csv";
+import { format, parseISO } from "date-fns";
 
-
-const Materiales = () => {
-  const [materiales, setMateriales] = useState([]);
-  const [input, setInput] = useState("");
+function Materiales() {
+  const [remitos, setRemitos] = useState([]);
 
   useEffect(() => {
-    const obtenerMateriales = async () => {
+    const fetchRemitos = async () => {
       try {
-        const materialesSnapshot = await db.collection("materiales").get();
-
-        const materialesData = materialesSnapshot.docs.map((doc) => ({
+        const remitosSnapshot = await db
+          .collection("remitos")
+          .orderBy("numero", "asc")
+          .get();
+        const remitosData = remitosSnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
-
-        setMateriales(materialesData);
+        setRemitos(remitosData);
       } catch (error) {
-        console.error("Error al obtener los materiales:", error);
+        console.error("Error al cargar remitos:", error);
       }
     };
 
-    obtenerMateriales();
+    fetchRemitos();
   }, []);
 
-  // Función para filtrar los materiales en función del valor del input
-  const filtrarMateriales = () => {
-    const materialesFiltrados = materiales.filter((material) =>
-      material.descripcion.toLowerCase().includes(input.toLowerCase())
-    );
-    setMateriales(materialesFiltrados);
+  const formatDate = (dateString) => {
+    const date = parseISO(dateString);
+    return format(date, "dd-MM-yy");
   };
 
   return (
-    <>
-      <div className="container">
-        <h4 className="text-center mt-5 mb-5">
-          Lista de Materiales Entregados
-        </h4>
-        <div className="mb-4">
-          <div className="input-group-text gap-2">
-            <input
-              className="form-control"
-              type="text"
-              placeholder="Filtrar por descripción"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-            />
-            <button
-              className="btn btn-primary"
-              onClick={filtrarMateriales}
-            >
-              Filtrar
-            </button>
-            <CSVLink
-              data={materiales}
-              filename={"materiales.csv"}
-              className="btn btn-primary"
-            >
-              Descargar
-            </CSVLink>
+    <div className="container mt-4">
+      <h2 className="mb-4 text-center">Materiales Remitidos</h2>
 
+      {remitos.map((remito) => (
+        <div key={remito.id}>
+          <div style={{ display: "flex", flexDirection: "row" }} className="mb-1">
+            <div style={{ width: "30%" }} className="border border-primary rounded p-2 card">
+              <h5 style={{ fontSize: "14px" }} className="text-warning">
+                {formatDate(remito.fecha)}
+              </h5>
+
+              <div>
+                <strong style={{ fontSize: "12px" }}>{remito.numero}</strong>
+              </div>
+              <div>
+                <strong style={{ fontSize: "12px" }}>{remito.nombre}</strong>
+              </div>
+            </div>
+            <div style={{ width: "70%" }}>
+              <ul className="list-group">
+                {remito.items.map((item) => (
+                  <li key={item.id} className="list-group-item">
+                    <strong>{item.cantidad}</strong> - {item.descripcion}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
-        <table id="tablaMateriales" className="table table-hover">
-          <thead>
-            <tr className="table-secondary">
-              <th>Fecha</th>
-              <th>Cantidad</th>
-              <th>Descripción</th>
-            </tr>
-          </thead>
-          <tbody>
-            {materiales.map((material) => (
-              <tr key={material.id}>
-                <td>{material.fecha}</td>
-                <td>{material.cantidad}</td>
-                <td>{material.descripcion}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </>
+      ))}
+    </div>
   );
-};
+}
 
 export default Materiales;
