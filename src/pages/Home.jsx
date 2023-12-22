@@ -68,7 +68,7 @@ const Home = () => {
       </div>
       <div className="text-center mt-5">
         <a className="text-decoration-none " href="/Remito">
-          Cr Re
+          Marco Sotola
         </a>
       </div>
     </>
