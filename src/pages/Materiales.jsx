@@ -42,7 +42,7 @@ function Materiales() {
           >
             <div
               style={{ width: "20%" }}
-              className=" text-center border border-primary rounded card"
+              className="d-flex justify-content-center align-items-center border border-primary rounded card"
             >
               <strong style={{ fontSize: "14px" }} className="text-warning">
                 {formatDate(remito.fecha)}
