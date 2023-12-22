@@ -74,42 +74,36 @@ const Remito = () => {
       }}
     >
       <Form.Group as={Row}>
-        <Form.Label column sm="2">
-          Fecha:
-        </Form.Label>
         <Col sm="8">
           <Form.Control
             type="date"
             value={fecha}
             onChange={handleFechaChange}
+            placeholder="Fecha"
             required
           />
         </Col>
       </Form.Group>
 
       <Form.Group as={Row}>
-        <Form.Label column sm="2">
-          Nombre:
-        </Form.Label>
         <Col sm="8">
           <Form.Control
             type="text"
             value={nombre}
             onChange={handleNombreChange}
+            placeholder="Nombre"
             required
           />
         </Col>
       </Form.Group>
 
       <Form.Group as={Row}>
-        <Form.Label column sm="2">
-          Número:
-        </Form.Label>
         <Col sm="8">
           <Form.Control
             type="text"
             value={numero}
             onChange={handleNumeroChange}
+            placeholder="Numero"
             required
           />
         </Col>
@@ -119,26 +113,23 @@ const Remito = () => {
       {items.map((item, index) => (
         <div className="form-group" key={index}>
           <Form.Group as={Row}>
-            <Form.Label column sm="2">
-              Cantidad:
-            </Form.Label>
+
             <Col sm="3">
               <Form.Control
                 type="text"
                 value={item.cantidad}
+                placeholder="Cantidad"
                 onChange={(e) =>
                   handleItemChange(index, "cantidad", e.target.value)
                 }
               />
             </Col>
 
-            <Form.Label column sm="2">
-              Descripción:
-            </Form.Label>
             <Col sm="3">
               <Form.Control
                 type="text"
                 value={item.descripcion}
+                placeholder="Descripcion"
                 onChange={(e) =>
                   handleItemChange(index, "descripcion", e.target.value)
                 }

@@ -36,20 +36,19 @@ function Materiales() {
 
       {remitos.map((remito) => (
         <div key={remito.id}>
-          <div style={{ display: "flex", flexDirection: "row" }} className="mb-1">
-            <div style={{ width: "30%" }} className="border border-primary rounded p-2 card">
-              <h5 style={{ fontSize: "14px" }} className="text-warning">
+          <div
+            style={{ display: "flex", flexDirection: "row" }}
+            className="mb-1"
+          >
+            <div
+              style={{ width: "20%" }}
+              className=" text-center border border-primary rounded card"
+            >
+              <strong style={{ fontSize: "14px" }} className="text-warning">
                 {formatDate(remito.fecha)}
-              </h5>
-
-              <div>
-                <strong style={{ fontSize: "12px" }}>{remito.numero}</strong>
-              </div>
-              <div>
-                <strong style={{ fontSize: "12px" }}>{remito.nombre}</strong>
-              </div>
+              </strong>
             </div>
-            <div style={{ width: "70%" }}>
+            <div style={{ width: "80%" }}>
               <ul className="list-group">
                 {remito.items.map((item) => (
                   <li key={item.id} className="list-group-item">

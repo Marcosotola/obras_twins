@@ -114,7 +114,7 @@ const Remitos = () => {
                     <span className="text-info">{formatDate(remito.fecha)}</span>
                   </h6>
                   <h6 className="card-title text-primary">
-                    Número: <span className="text-success">{remito.numero}</span>
+                    Número: <span className="text-success">000-{remito.numero}</span>
                   </h6>
                 </div>
               </div>
