@@ -66,6 +66,9 @@ node_modules/
 .env
 
 # Ignorar archivo grande
-node_modules/.cache/default-development/2.pack
+
 
 node_modules/.cache/default-development/
+
+node_modules/.cache/default-development/2.pack
+
