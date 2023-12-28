@@ -51,7 +51,7 @@ const Home = () => {
             </a>
           </button>
           <button class="btn btn-lg btn-primary p-3" type="button">
-            <a className="text-decoration-none" href="/Avance">
+            <a className="text-decoration-none" href="/Fotos">
               <h3>Fotos</h3>
             </a>
           </button>
