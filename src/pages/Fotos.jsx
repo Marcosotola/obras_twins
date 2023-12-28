@@ -110,7 +110,8 @@ useEffect(() => {
 
     return (
         <div className="container mt-5">
-            <h1>Subir Fotos</h1>
+            <h1>Fotos</h1>
+            <h4>Subir Fotos</h4>
             <form onSubmit={handleFormSubmit}>
                 <div className="mb-3 input-group">
                     <span className="input-group-text">
@@ -131,7 +132,7 @@ useEffect(() => {
                     <input
                         type="text"
                         className="form-control"
-                        placeholder="Sector"
+                        placeholder="Nivel"
                         value={sector}
                         onChange={handleSectorChange}
                     />
@@ -170,7 +171,7 @@ useEffect(() => {
 
             {Object.keys(fotosPorSector).map((sector) => (
                 <div key={sector} className="mt-4">
-                    <h2>Fotos del Sector {sector}</h2>
+                    <h2>Fotos del Nivel {sector}</h2>
                     {fotosPorSector[sector].map((fotoSet, setIndex) => (
                         <div key={setIndex} className="mb-3">
                             <p>{fotoSet.fecha}</p>
