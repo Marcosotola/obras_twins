@@ -1,10 +1,9 @@
-// Import the functions you need from the SDKs you need
+// Importa las funciones que necesitas de los SDK que necesitas
 import firebase from "firebase/app";
 import "firebase/firestore";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import "firebase/storage"; // Añade la importación de Storage
 
-// Your web app's Firebase configuration
+// Tu configuración de Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyD34DuhQyH4rAb_035PhNUQNYgNKuTxwmM",
   authDomain: "obras-twins.firebaseapp.com",
@@ -14,8 +13,11 @@ const firebaseConfig = {
   appId: "1:22708881586:web:a5d02a5f970ced6ec261ab"
 };
 
-// Initialize Firebase
+// Inicializa Firebase
 const fb = firebase.initializeApp(firebaseConfig);
-export const db = fb.firestore();
+const db = fb.firestore();
+const storage = firebase.storage(); // Inicializa Storage
+
+export { db, storage };
 
 

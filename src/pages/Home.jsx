@@ -50,6 +50,11 @@ const Home = () => {
               <h3>Avance</h3>
             </a>
           </button>
+          <button class="btn btn-lg btn-primary p-3" type="button">
+            <a className="text-decoration-none" href="/Avance">
+              <h3>Fotos</h3>
+            </a>
+          </button>
         </div>
         <div className="d-flex justify-content-center"></div>
         <hr />

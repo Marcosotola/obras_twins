@@ -18,6 +18,7 @@ import Piso0vs from './pages/Piso0vs';
 import Piso1 from './pages/Piso1';
 import Piso2 from './pages/Piso2';
 import Piso8 from './pages/Piso8';
+import Fotos from './pages/Fotos';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
             <Route path="/Piso1" element={<Piso1 />} />
             <Route path="/Piso2" element={<Piso2 />} />
             <Route path="/Piso8" element={<Piso8 />} />
+            <Route path="/Fotos" element={<Fotos />} />
           </Routes>
         </Router>
         <ToastContainer />

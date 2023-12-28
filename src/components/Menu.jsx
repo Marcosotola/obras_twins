@@ -42,7 +42,9 @@ function Menu() {
           <li className="nav-item">
             <a className="nav-link text-light" href="/Avance"><h4>Avance</h4></a>
           </li>
-          
+          <li className="nav-item">
+            <a className="nav-link text-light" href="/Fotos"><h4>Fotos</h4></a>
+          </li>
         </ul>
       </div>
     </nav>
