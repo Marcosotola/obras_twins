@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { db, storage } from "../firebase";
 import { BsCalendar, BsBuilding, BsFileEarmarkImage } from "react-icons/bs"; // Importa iconos de Bootstrap
 
@@ -8,6 +8,31 @@ const Fotos = () => {
     const [archivos, setArchivos] = useState([]);
     const [fotosPorSector, setFotosPorSector] = useState({});
     const [error, setError] = useState(null);
+
+
+// Función para obtener datos desde Firestore
+const fetchData = async () => {
+    try {
+        const fotosData = await db.collection("fotos").get();
+        const fotosPorSectorData = {};
+        fotosData.forEach((doc) => {
+            const data = doc.data();
+            fotosPorSectorData[data.sector] = fotosPorSectorData[data.sector]
+                ? [...fotosPorSectorData[data.sector], { fecha: data.fecha, fotos: data.fotos }]
+                : [{ fecha: data.fecha, fotos: data.fotos }];
+        });
+        setFotosPorSector(fotosPorSectorData);
+    } catch (error) {
+        console.error("Error al obtener datos:", error);
+    }
+};
+
+useEffect(() => {
+    fetchData();
+}, []); 
+
+
+
 
     const handleFechaChange = (e) => {
         setFecha(e.target.value);
