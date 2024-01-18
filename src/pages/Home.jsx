@@ -15,7 +15,7 @@ const Home = () => {
               aria-valuenow="75"
               aria-valuemin="0"
               aria-valuemax="100"
-              style={{ width: "3%" }}
+              style={{ width: "7%" }}
             ></div>
           </div>
         </div>
