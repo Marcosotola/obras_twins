@@ -179,9 +179,9 @@ useEffect(() => {
                                 <img
                                     key={index}
                                     src={foto.url}
-                                    className="img-fluid"
+                                    className="img-thumbnail m-1"
                                     alt={`Foto ${index}`}
-                                    width="50%"
+                                    width="48%"
                                 />
                             ))}
                         </div>
